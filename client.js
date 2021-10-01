@@ -34,7 +34,7 @@ function addEmployee () {
 
     $('.fname').val('');
     $('.lname').val('');
-    $('.idNum').val('');
+    $('.id-num').val('');
     $('.title').val('');
     $('.salary').val('');
 
@@ -44,7 +44,8 @@ function addEmployee () {
 function renderEmployee(){
     // clear the DOM of employees
     $('#tableBody').empty();
-
+    // initialize a total salary variable
+    let totalAnnual = 0;
     for (let employee of employeeList) {
         const tableRow =
         // define our row of table data to be appended.
@@ -58,6 +59,18 @@ function renderEmployee(){
             </tr>`)
         $('#tableBody').append(tableRow);
         
+        // add salary to total
+        totalAnnual += Number(employee.salary);
     }
+    console.log('Total annual salary is ', totalAnnual); 
+    // edit the monthly salary
+    $('#totalMonthly').empty(); // empty the current value
+    let totalMonthly = totalAnnual/12;
+    console.log(totalMonthly);
+    
+    $('#totalMonthly').text(`${totalMonthly}`);
 
-}
+
+} // end of renderEmployee
+    
+    
