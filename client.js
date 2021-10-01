@@ -54,7 +54,7 @@ function renderEmployee(){
             <td>${employee.lname}</td>
             <td>${employee.idNum}</td>
             <td>${employee.title}</td>
-            <td>${employee.salary}</td>
+            <td>${formatCurrency(employee.salary)}</td>
             <td><button class="delButton btn btn-danger">Delete</button><td>
             </tr>`)
         $('#tableBody').append(tableRow);
@@ -64,13 +64,29 @@ function renderEmployee(){
     }
     console.log('Total annual salary is ', totalAnnual); 
     // edit the monthly salary
-    $('#totalMonthly').empty(); // empty the current value
+    $('#salaryLine').empty(); // empty the current value
     let totalMonthly = totalAnnual/12;
     console.log(totalMonthly);
-    
-    $('#totalMonthly').text(`${totalMonthly}`);
+    let salaryText = $(`
+    <h2>Total Monthly: ${formatCurrency(totalMonthly)}
+    </h2>`);
+    $('#salaryLine').append(salaryText);
+    if (totalMonthly > 20000) {
+       salaryText.addClass('red-ink'); 
+    }
 
 
 } // end of renderEmployee
     
-    
+// creating a quick function to convert a number to currency format
+
+function formatCurrency(number) {
+    return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: 0,
+    }).format(number);
+  }
+
+// Function to delete 
+      
