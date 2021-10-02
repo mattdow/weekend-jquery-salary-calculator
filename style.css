@@ -47,12 +47,14 @@ header {
     font-size: 24px;
     padding: 4px 16px;
     border-radius: 6px;
-    margin-right: 1rem;
+    margin: 0 1rem;
 }
 
 #errorMessage {
     font-size: 20px;
     color: red;
+    display: inline-flex;
+    align-items: center;
 }
 
 

@@ -108,5 +108,5 @@ function formatCurrency(number) {
     }).format(number);
 }
 
-// Function to delete 
+
       
