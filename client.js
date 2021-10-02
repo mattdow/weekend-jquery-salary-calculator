@@ -14,7 +14,7 @@ function readyNow() {
 // create a function to call to add an employee to the array and the DOM
 
 function addEmployee () {
-    console.log('Employee Added');
+    // console.log('Employee Added');
     // let fname = $('.fname').val();
     // console.log(fname);
 
@@ -25,6 +25,13 @@ function addEmployee () {
         title: $('.title').val(),
         salary: $('.salary').val(),
     }    
+    // check for blank values
+    if (!employee.fname || !employee.lname || !employee.idNum || !employee.title || !employee.salary) {
+        let el = $('#errorMessage');
+        el.empty(); // emptying the errorMessage so errors don't concatenate
+        el.append('Please complete all fields!'); // Add the error text in the span beside the button
+        return false; // returning to end the function
+    } // end conditional check for inputs
     // console.log(employee); 
     employeeList.push(employee); // add the employee to our list
     renderEmployee(); // call rendering function   
