@@ -7,9 +7,9 @@ function readyNow() {
 
     // Add click listener
 
-$('#addEmployee').on('click', addEmployee);
-    
-}
+    $('#addEmployee').on('click', addEmployee);
+    $('#tableBody').on('click', '.delButton', deleteEmployee);
+} 
 
 // create a function to call to add an employee to the array and the DOM
 
@@ -18,15 +18,14 @@ function addEmployee () {
     // let fname = $('.fname').val();
     // console.log(fname);
 
-    const employee = { // define an employee object
+    const employee = { // define an employee object and insert input fields
         fname: $('.fname').val(),
         lname: $('.lname').val(),
         idNum: $('.id-num').val(),
         title: $('.title').val(),
         salary: $('.salary').val(),
-    }
-    
-    console.log(employee); 
+    }    
+    // console.log(employee); 
     employeeList.push(employee); // add the employee to our list
     renderEmployee(); // call rendering function   
 
@@ -37,8 +36,14 @@ function addEmployee () {
     $('.id-num').val('');
     $('.title').val('');
     $('.salary').val('');
+} // end addEmployee
 
-    
+// create function to remove an employee from the DOM 
+
+function deleteEmployee() {
+    console.log('Delete Button Activate!');
+    console.log(this);
+    $(this).closest('tr').remove(); 
 }
 
 function renderEmployee(){
@@ -57,25 +62,23 @@ function renderEmployee(){
             <td>${formatCurrency(employee.salary)}</td>
             <td><button class="delButton btn btn-danger">Delete</button><td>
             </tr>`)
-        $('#tableBody').append(tableRow);
-        
+        $('#tableBody').prepend(tableRow);
         // add salary to total
         totalAnnual += Number(employee.salary);
     }
     console.log('Total annual salary is ', totalAnnual); 
     // edit the monthly salary
     $('#salaryLine').empty(); // empty the current value
-    let totalMonthly = totalAnnual/12;
-    console.log(totalMonthly);
-    let salaryText = $(`
-    <h2>Total Monthly: ${formatCurrency(totalMonthly)}
-    </h2>`);
+    let totalMonthly = totalAnnual/12; // calculate monthly value from annual
+    // console.log(totalMonthly);
+    // prepend a span 
+    let salaryText = $(` 
+    <span>Total Monthly: ${formatCurrency(totalMonthly)}
+    </span>`);
     $('#salaryLine').append(salaryText);
     if (totalMonthly > 20000) {
        salaryText.addClass('red-ink'); 
     }
-
-
 } // end of renderEmployee
     
 // creating a quick function to convert a number to currency format
@@ -86,7 +89,7 @@ function formatCurrency(number) {
     currency: 'USD',
     maximumFractionDigits: 0,
     }).format(number);
-  }
+}
 
 // Function to delete 
       
