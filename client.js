@@ -30,20 +30,24 @@ function addEmployee () {
         let el = $('#errorMessage');
         el.empty(); // emptying the errorMessage so errors don't concatenate
         el.append('Please complete all fields!'); // Add the error text in the span beside the button
+        inputReset(); //                           
         return false; // returning to end the function
     } // end conditional check for inputs
     // console.log(employee); 
     employeeList.push(employee); // add the employee to our list
     renderEmployee(); // call rendering function   
+    inputReset(); // reset all inputs
+} // end addEmployee
 
-    // reset all inputs
+// create function to reset inputs
 
+function inputReset () {
     $('.fname').val('');
     $('.lname').val('');
     $('.id-num').val('');
     $('.title').val('');
     $('.salary').val('');
-} // end addEmployee
+}
 
 // create function to remove an employee from the DOM 
 
@@ -82,20 +86,17 @@ function renderEmployee(){
     }
     console.log('Total annual salary is ', totalAnnual); 
     // edit the monthly salary
-    $('#salaryLine').empty(); // empty the current value
+    // $('#salaryLine').empty(); // empty the current value
     let totalMonthly = totalAnnual/12; // calculate monthly value from annual
-    // console.log(totalMonthly);
-    // prepend a span 
-    let salaryText = $(` 
-            <h2 class="calc">Total Monthly: ${formatCurrency(totalMonthly)}
-            </h2>
-        `);
-        console.log(salaryText);
-    $('#salaryLine').append(salaryText);
+    let salaryText = $(`
+    <span>Total Monthly: ${formatCurrency(totalMonthly)}
+    </span>`)
+    $('.calc').empty();
+    $('.calc').append(salaryText);
     if (totalMonthly > 20000) {
-       salaryText.addClass('red-ink'); 
+        salaryText.addClass('red-ink');
     }
-} // end of renderEmployee
+ } // end of renderEmployee
     
 // creating a quick function to convert a number to currency format
 

@@ -12,7 +12,7 @@ header {
 }
 
 .sec-head {
-    margin-top: 3rem;
+    margin-top: 2rem;
  }
 
 .red-ink {
@@ -27,8 +27,8 @@ header {
 }
 
 .submit {
-    float: right;
-    margin-bottom: 2rem;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .input-bar {
@@ -47,11 +47,14 @@ header {
     font-size: 24px;
     padding: 4px 16px;
     border-radius: 6px;
+    margin-right: 1rem;
 }
 
 #errorMessage {
     font-size: 20px;
     color: red;
 }
+
+
 
 
