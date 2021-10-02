@@ -43,7 +43,14 @@ function addEmployee () {
 function deleteEmployee() {
     console.log('Delete Button Activate!');
     console.log(this);
-    $(this).closest('tr').remove(); 
+    // $(this).closest('tr').remove();
+    // grabbing the index of the employee to delete, via the button id attribute 
+    let deleteIndex = $(this).attr('id')[8];
+    console.log(deleteIndex);
+    // splice out the employee to be deleted from employeeList
+    employeeList.splice(deleteIndex, 1);
+    // re-render the DOM outputs    
+    renderEmployee();
 }
 
 function renderEmployee(){
@@ -51,20 +58,20 @@ function renderEmployee(){
     $('#tableBody').empty();
     // initialize a total salary variable
     let totalAnnual = 0;
-    for (let employee of employeeList) {
+    for (let i = 0; i < employeeList.length; i++) {
         const tableRow =
         // define our row of table data to be appended.
         $(`<tr> 
-            <td>${employee.fname}</td>
-            <td>${employee.lname}</td>
-            <td>${employee.idNum}</td>
-            <td>${employee.title}</td>
-            <td>${formatCurrency(employee.salary)}</td>
-            <td><button class="delButton btn btn-danger">Delete</button><td>
+            <td>${employeeList[i].fname}</td>
+            <td>${employeeList[i].lname}</td>
+            <td>${employeeList[i].idNum}</td>
+            <td>${employeeList[i].title}</td>
+            <td>${formatCurrency(employeeList[i].salary)}</td>
+            <td><button id="buttonID${i}" class="delButton btn btn-danger">Delete</button><td>
             </tr>`)
         $('#tableBody').prepend(tableRow);
         // add salary to total
-        totalAnnual += Number(employee.salary);
+        totalAnnual += Number(employeeList[i].salary);
     }
     console.log('Total annual salary is ', totalAnnual); 
     // edit the monthly salary
@@ -73,8 +80,10 @@ function renderEmployee(){
     // console.log(totalMonthly);
     // prepend a span 
     let salaryText = $(` 
-    <span>Total Monthly: ${formatCurrency(totalMonthly)}
-    </span>`);
+            <h2 class="calc">Total Monthly: ${formatCurrency(totalMonthly)}
+            </h2>
+        `);
+        console.log(salaryText);
     $('#salaryLine').append(salaryText);
     if (totalMonthly > 20000) {
        salaryText.addClass('red-ink'); 
